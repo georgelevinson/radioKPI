@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\radioKPI_domain\radioKPI_domain.csproj" />
+    <ProjectReference Include="..\radioKPI_domain\radioKPI_C_domain.csproj" />
   </ItemGroup>
 
 </Project>
