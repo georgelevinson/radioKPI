@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace radioKPI_infrastructure.DbModels
+namespace radioKPI_D_infrastructure.Entities
 {
     public class Sufflere
     {

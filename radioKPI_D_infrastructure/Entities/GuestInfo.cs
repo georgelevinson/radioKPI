@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using radioKPI_domain.Enums;
 
-namespace radioKPI_infrastructure.DbModels
+namespace radioKPI_D_infrastructure.Entities
 {
     public class GuestInfo
     {

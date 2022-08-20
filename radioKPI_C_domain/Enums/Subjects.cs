@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace radioKPI_domain.Enums
+namespace radioKPI_C_domain.Enums
 {
     public enum Subjects
     {
