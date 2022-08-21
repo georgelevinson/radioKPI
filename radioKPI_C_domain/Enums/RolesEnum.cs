@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace radioKPI_C_domain.Enums
 {
-    public enum Roles
+    public enum RolesEnum
     {
         ServiceAdmin,
         HeadOfRadio,

@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace radioKPI_C_domain.Enums
 {
-    public enum Subjects
+    public enum StatusesEnum
     {
-        STEM,
-        Military,
-        Activism,
-        Education,
-        VisualArts,
-        Music,
-        Entertainment
+        Initialized,
+        InProgress,
+        Completed
     }
 }
