@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class Proposal
+    public class Proposal : IDbEntity
     {
         [Key]
         public int Id { get; set; }

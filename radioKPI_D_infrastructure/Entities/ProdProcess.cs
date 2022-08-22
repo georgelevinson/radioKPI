@@ -9,7 +9,7 @@ using radioKPI_C_domain.Enums;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class ProdProcess
+    public class ProdProcess : IDbEntity
     {
         [Key]
         public int Id { get; set; }

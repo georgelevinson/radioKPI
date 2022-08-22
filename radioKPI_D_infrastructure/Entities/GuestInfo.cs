@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class GuestInfo
+    public class GuestInfo : IDbEntity
     {
         [Key]
         public int Id { get; set; }
@@ -59,7 +59,7 @@ namespace radioKPI_D_infrastructure.Entities
         public int? ProdProcessId { get; set; }
         public ProdProcess? MyProperty { get; set; }
 
-        public ICollection<Subjects> Subjects { get; set; }
+        public ICollection<Subject> Subjects { get; set; }
 
         #endregion
     }

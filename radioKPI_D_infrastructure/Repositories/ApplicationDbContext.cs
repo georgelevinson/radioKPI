@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using
 using radioKPI_D_infrastructure.Entities;
 
 namespace radioKPI_D_infrastructure.Repositories
@@ -12,6 +11,23 @@ namespace radioKPI_D_infrastructure.Repositories
     
     public class ApplicationDbContext : DbContext
     {
+        #region DbSets
+
+        public virtual DbSet<GuestInfo> GuestInfo { get; set; }
+        public virtual DbSet<Proposal> Proposals { get; set; }
+        public virtual DbSet<Sufflere> Suffleres { get; set; }
+        public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<PartialReport> PartialReports { get; set; }
+        public virtual DbSet<SessionReport> SessionReports { get; set; }
+        public virtual DbSet<ProdProcess> ProdProcesses { get; set; }
+        public virtual DbSet<PostProdProcess> PostProdProcesses { get; set; }
+        public virtual DbSet<Episode> Episodes { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<ProcessStatus> ProcessStatuses { get; set; }
+
+        #endregion
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer();

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class Subjects
+    public class Subject : IDbEntity
     {
         [Key]
         public int Id { get; set; }

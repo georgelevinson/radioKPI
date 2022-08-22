@@ -10,7 +10,7 @@ using radioKPI_C_domain.Enums;
 namespace radioKPI_D_infrastructure.Entities
 {
     [Table("Episodes")]
-    public class Episode
+    public class Episode : IDbEntity
     {
         [Key]
         public int Id { get; set; }

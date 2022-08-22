@@ -19,4 +19,9 @@
     <ProjectReference Include="..\radioKPI_C_domain\radioKPI_C_domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

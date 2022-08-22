@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class PostProdProcess
+    public class PostProdProcess : IDbEntity
     {
         [Key]
         public int Id { get; set; }
