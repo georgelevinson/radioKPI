@@ -51,12 +51,8 @@ namespace radioKPI_D_infrastructure.Entities
         //public int UpdatedById { get; set; }
         //public User UpdatedById { get; set; }
 
-        [ForeignKey("ProposalId")]
-        public int? ProposalId { get; set; }
         public Proposal? Proposal { get; set; }
 
-        [ForeignKey("ProdProcess")]
-        public int? ProdProcessId { get; set; }
         public ProdProcess? MyProperty { get; set; }
 
         public ICollection<Subject> Subjects { get; set; }

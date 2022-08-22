@@ -33,10 +33,6 @@ namespace radioKPI_D_infrastructure.Entities
         public int SufflereId { get; set; }
         public Sufflere Sufflere { get; set; }
 
-        [ForeignKey("ReportId")]
-        public int? ReportId { get; set; }
-        public SessionReport? Report { get; set; }
-
         //[Required]
         //public int RecEngineerUserId { get; set; }
         //public ApplicationUser RecEngineer { get; set; }
@@ -44,6 +40,8 @@ namespace radioKPI_D_infrastructure.Entities
         //[Required]
         //public int RecEngineerUserId { get; set; }
         //public ApplicationUser Videograph { get; set; }
+
+        public SessionReport? Report { get; set; }
 
         public ICollection<PartialReport>? PartialReports { get; set; }
 

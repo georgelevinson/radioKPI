@@ -20,18 +20,20 @@ namespace radioKPI_D_infrastructure.Entities
 
         public string? ReleaseNotes { get; set; }
 
-        [NotMapped]
-        public StatusesEnum StatusEnum => Status.Description.ToEnum<StatusesEnum>();
-
         [Required]
         [ForeignKey("StatusId")]
         public int StatusId { get; set; }
-        public ProcessStatus Status { get; set; }
+        public EpisodeStatus Status { get; set; }
 
         [ForeignKey("PostProdProcessId")]
-        public int PostProdProcessId { get; set; }
-        public PostProdProcess PostProdProcess { get; set; }
+        public int? PostProdProcessId { get; set; }
+        public PostProdProcess? PostProdProcess { get; set; }
 
-        public ICollection<ProdProcess> ProductionProcesses { get; set; }
+        public ICollection<ProdProcess>? ProductionProcesses { get; set; }
+
+        #region Utility
+        [NotMapped]
+        public EpisodeStatusesEnum StatusEnum => Status.Description.ToEnum<EpisodeStatusesEnum>();
+        #endregion
     }
 }

@@ -16,6 +16,11 @@ namespace radioKPI_D_infrastructure.Entities
         [Required]
         public string ReportText { get; set; }
 
+        [Required]
+        [ForeignKey("SessionId")]
+        public int SessionId { get; set; }
+        public Session Session { get; set; }
+
         public ICollection<PartialReport> PartialReports { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

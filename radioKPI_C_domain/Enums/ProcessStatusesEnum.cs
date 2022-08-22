@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace radioKPI_C_domain.Enums
 {
-    public enum StatusesEnum
+    public enum ProcessStatusesEnum
     {
         Initialized,
         InProgress,

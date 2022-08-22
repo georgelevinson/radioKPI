@@ -9,17 +9,11 @@ namespace radioKPI_D_infrastructure.Entities
         [Key]
         public int Id { get; set; }
 
-        [NotMapped]
-        public StatusesEnum StatusEnum => Status.Description.ToEnum<StatusesEnum>();
-
         [Required]
         [ForeignKey("StatusId")]
         public int StatusId { get; set; }
         public ProcessStatus Status { get; set; }
 
-        [Required]
-        [ForeignKey("EpisodeId")]
-        public int EpisodeId { get; set; }
         public Episode Episode { get; set; }
 
         //[Required]
@@ -34,5 +28,9 @@ namespace radioKPI_D_infrastructure.Entities
 
         public ICollection<Session> Sessions { get; set; }
 
+        #region Utility
+        [NotMapped]
+        public ProcessStatusesEnum StatusEnum => Status.Description.ToEnum<ProcessStatusesEnum>();
+        #endregion
     }
 }

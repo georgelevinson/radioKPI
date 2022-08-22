@@ -28,8 +28,6 @@ namespace radioKPI_D_infrastructure.Entities
         public int ProposalId { get; set; }
         public Proposal Proposal { get; set; }
 
-        [ForeignKey("SessionId")]
-        public int? SessionId { get; set; }
         public Session? Session { get; set; }
 
         #endregion
