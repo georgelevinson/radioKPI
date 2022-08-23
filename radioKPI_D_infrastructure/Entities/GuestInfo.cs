@@ -24,11 +24,6 @@ namespace radioKPI_D_infrastructure.Entities
 
         public string? GuestDetails { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime UpdatedOn { get; set; }
-
         #region Foreign Keys and Navigation Properties
 
         //[Required]
@@ -36,7 +31,6 @@ namespace radioKPI_D_infrastructure.Entities
         //public int GuestId { get; set; }
         //public User Guest { get; set; }
 
-        //[Required]
         //[ForeignKey("ManagerId")]
         //public int ManagerId { get; set; }
         //public User Manager { get; set; }
@@ -53,9 +47,15 @@ namespace radioKPI_D_infrastructure.Entities
 
         public Proposal? Proposal { get; set; }
 
-        public ProdProcess? MyProperty { get; set; }
-
         public ICollection<Subject> Subjects { get; set; }
+
+        #endregion
+
+        #region Database-Generated
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

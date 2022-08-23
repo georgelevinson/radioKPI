@@ -16,12 +16,17 @@ namespace radioKPI_D_infrastructure.Entities
         [Required]
         public string DataJson { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime UpdatedOn { get; set; }
-
         #region Foreign Keys and Navigation Properties
+
+        //[Required]
+        //[ForeignKey("CreatedById")]
+        //public int CreatedById { get; set; }
+        //public User CreatedById { get; set; }
+
+        //[Required]
+        //[ForeignKey("UpdatedById")]
+        //public int UpdatedById { get; set; }
+        //public User UpdatedById { get; set; }
 
         [Required]
         [ForeignKey("ProposalId")]
@@ -29,6 +34,16 @@ namespace radioKPI_D_infrastructure.Entities
         public Proposal Proposal { get; set; }
 
         public Session? Session { get; set; }
+
+        public Recording? Recording { get; set; }
+
+        #endregion
+
+        #region Database-Generated
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

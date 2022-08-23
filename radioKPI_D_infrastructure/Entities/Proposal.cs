@@ -18,12 +18,17 @@ namespace radioKPI_D_infrastructure.Entities
 
         public string? OrgNotes { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime UpdatedOn { get; set; }
-
         #region Foreign Keys and Navigation Properties
+
+        //[Required]
+        //[ForeignKey("CreatedById")]
+        //public int CreatedById { get; set; }
+        //public User CreatedById { get; set; }
+
+        //[Required]
+        //[ForeignKey("UpdatedById")]
+        //public int UpdatedById { get; set; }
+        //public User UpdatedById { get; set; }
 
         [Required]
         [ForeignKey("GuestId")]
@@ -33,6 +38,14 @@ namespace radioKPI_D_infrastructure.Entities
         public Session? Session { get; set; }
 
         public Sufflere? Sufflere { get; set; }
+
+        #endregion
+
+        #region Database-Generated
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

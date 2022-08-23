@@ -8,7 +8,7 @@ namespace radioKPI_C_domain.Enums
 {
     public enum EpisodeStatusesEnum
     {
-        Planned,
+        Planned = 1,
         InScripting,
         InProduction,
         InPost,

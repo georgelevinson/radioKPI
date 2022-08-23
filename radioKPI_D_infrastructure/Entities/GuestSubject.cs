@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace radioKPI_D_infrastructure.Entities
 {
-    public class ProcessStatus : IDbEntity
+    public class GuestSubject
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        [ForeignKey("GuestId")]
+        public int GuestId { get; set; }
+        public GuestInfo Guest { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar(50)")]
-        public string Description { get; set; }
+        [ForeignKey("SubjectId")]
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+
     }
 }

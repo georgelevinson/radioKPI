@@ -17,5 +17,7 @@ namespace radioKPI_D_infrastructure.Entities
         [Required]
         [Column(TypeName = "varchar(50)")]
         public string Description { get; set; }
+
+        public ICollection<GuestInfo> Guests { get; set; }
     }
 }

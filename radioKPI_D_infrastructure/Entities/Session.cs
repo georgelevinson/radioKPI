@@ -16,22 +16,17 @@ namespace radioKPI_D_infrastructure.Entities
         [Required]
         public DateTime RecordingDate { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime UpdatedOn { get; set; }
-
         #region Foreign Keys and Navigation Properties
 
-        [Required]
-        [ForeignKey("ProposalId")]
-        public int ProposalId { get; set; }
-        public Proposal Proposal { get; set; }
+        //[Required]
+        //[ForeignKey("CreatedById")]
+        //public int CreatedById { get; set; }
+        //public User CreatedById { get; set; }
 
-        [Required]
-        [ForeignKey("SufflereId")]
-        public int SufflereId { get; set; }
-        public Sufflere Sufflere { get; set; }
+        //[Required]
+        //[ForeignKey("UpdatedById")]
+        //public int UpdatedById { get; set; }
+        //public User UpdatedById { get; set; }
 
         //[Required]
         //public int RecEngineerUserId { get; set; }
@@ -44,6 +39,18 @@ namespace radioKPI_D_infrastructure.Entities
         public SessionReport? Report { get; set; }
 
         public ICollection<PartialReport>? PartialReports { get; set; }
+
+        public ICollection<Recording> Recordings { get; set; }
+
+        public ICollection<Sufflere> Suffleres { get; set; }
+
+        #endregion
+
+        #region Database-Generated
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
 
         #endregion
     }

@@ -8,8 +8,9 @@ namespace radioKPI_C_domain.Enums
 {
     public enum ProcessStatusesEnum
     {
-        Initialized,
+        Initialized = 1,
         InProgress,
+        Freezed,
         Completed
     }
 }

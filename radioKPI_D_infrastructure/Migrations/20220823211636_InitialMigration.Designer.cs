@@ -12,7 +12,7 @@ using radioKPI_D_infrastructure.Repositories;
 namespace radioKPI_D_infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220822202949_InitialMigration")]
+    [Migration("20220823211636_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace radioKPI_D_infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("GuestInfoSubject", b =>
+                {
+                    b.Property<int>("GuestsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GuestsId", "SubjectsId");
+
+                    b.HasIndex("SubjectsId");
+
+                    b.ToTable("GuestInfoSubject");
+                });
+
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Episode", b =>
                 {
                     b.Property<int>("Id")
@@ -32,23 +47,20 @@ namespace radioKPI_D_infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("PostProdProcessId")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("ReleaseDate")
+                    b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ReleaseNotes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostProdProcessId")
-                        .IsUnique()
-                        .HasFilter("[PostProdProcessId] IS NOT NULL");
 
                     b.HasIndex("StatusId");
 
@@ -69,7 +81,39 @@ namespace radioKPI_D_infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EpisodeStatus");
+                    b.ToTable("EpisodeStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Planned"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "InScripting"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "InProduction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "InPost"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "PreRelease"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Released"
+                        });
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.GuestInfo", b =>
@@ -104,6 +148,21 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.ToTable("GuestInfo");
                 });
 
+            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.GuestSubject", b =>
+                {
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GuestId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubjectId", "GuestId");
+
+                    b.HasIndex("GuestId");
+
+                    b.ToTable("GuestSubjects");
+                });
+
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.PartialReport", b =>
                 {
                     b.Property<int>("Id")
@@ -136,90 +195,6 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.ToTable("PartialReports");
                 });
 
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.PostProdProcess", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("PostProdProcesses");
-                });
-
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.ProcessStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProcessStatuses");
-                });
-
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.ProdProcess", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("EpisodeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GuestInfoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProposalId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SessionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SessionReportId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SufflereId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EpisodeId");
-
-                    b.HasIndex("GuestInfoId")
-                        .IsUnique();
-
-                    b.HasIndex("ProposalId");
-
-                    b.HasIndex("SessionId");
-
-                    b.HasIndex("SessionReportId");
-
-                    b.HasIndex("StatusId");
-
-                    b.HasIndex("SufflereId");
-
-                    b.ToTable("ProdProcesses");
-                });
-
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Proposal", b =>
                 {
                     b.Property<int>("Id")
@@ -243,6 +218,9 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.Property<string>("OrgNotes")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SessionId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
@@ -251,7 +229,41 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.HasIndex("GuestId")
                         .IsUnique();
 
+                    b.HasIndex("SessionId");
+
                     b.ToTable("Proposals");
+                });
+
+            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Recording", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("EpisodeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SufflereId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TechNotes")
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EpisodeId");
+
+                    b.HasIndex("SessionId");
+
+                    b.HasIndex("SufflereId")
+                        .IsUnique();
+
+                    b.ToTable("Recordings");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Session", b =>
@@ -267,30 +279,13 @@ namespace radioKPI_D_infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int?>("PostProdProcessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProposalId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("RecordingDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("SufflereId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostProdProcessId");
-
-                    b.HasIndex("ProposalId")
-                        .IsUnique();
-
-                    b.HasIndex("SufflereId")
-                        .IsUnique();
 
                     b.ToTable("Sessions");
                 });
@@ -335,14 +330,51 @@ namespace radioKPI_D_infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int?>("GuestInfoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GuestInfoId");
-
                     b.ToTable("Subjects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "STEM"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Military"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Politics"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Activism"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Education"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "VisualArts"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Music"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Entertainment"
+                        });
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Sufflere", b =>
@@ -365,6 +397,9 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.Property<int>("ProposalId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SessionId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
@@ -373,24 +408,54 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.HasIndex("ProposalId")
                         .IsUnique();
 
+                    b.HasIndex("SessionId");
+
                     b.ToTable("Suffleres");
+                });
+
+            modelBuilder.Entity("GuestInfoSubject", b =>
+                {
+                    b.HasOne("radioKPI_D_infrastructure.Entities.GuestInfo", null)
+                        .WithMany()
+                        .HasForeignKey("GuestsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Episode", b =>
                 {
-                    b.HasOne("radioKPI_D_infrastructure.Entities.PostProdProcess", "PostProdProcess")
-                        .WithOne("Episode")
-                        .HasForeignKey("radioKPI_D_infrastructure.Entities.Episode", "PostProdProcessId");
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.EpisodeStatus", "Status")
-                        .WithMany()
+                    b.HasOne("radioKPI_D_infrastructure.Entities.EpisodeStatus", "EpisodeStatus")
+                        .WithMany("Episodes")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PostProdProcess");
+                    b.Navigation("EpisodeStatus");
+                });
 
-                    b.Navigation("Status");
+            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.GuestSubject", b =>
+                {
+                    b.HasOne("radioKPI_D_infrastructure.Entities.GuestInfo", "Guest")
+                        .WithMany()
+                        .HasForeignKey("GuestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guest");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.PartialReport", b =>
@@ -408,64 +473,6 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.PostProdProcess", b =>
-                {
-                    b.HasOne("radioKPI_D_infrastructure.Entities.ProcessStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.ProdProcess", b =>
-                {
-                    b.HasOne("radioKPI_D_infrastructure.Entities.Episode", null)
-                        .WithMany("ProductionProcesses")
-                        .HasForeignKey("EpisodeId");
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.GuestInfo", "GuestInfo")
-                        .WithOne("MyProperty")
-                        .HasForeignKey("radioKPI_D_infrastructure.Entities.ProdProcess", "GuestInfoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.Proposal", "Proposal")
-                        .WithMany()
-                        .HasForeignKey("ProposalId");
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId");
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.SessionReport", "SessionReport")
-                        .WithMany()
-                        .HasForeignKey("SessionReportId");
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.ProcessStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("radioKPI_D_infrastructure.Entities.Sufflere", "Sufflere")
-                        .WithMany()
-                        .HasForeignKey("SufflereId");
-
-                    b.Navigation("GuestInfo");
-
-                    b.Navigation("Proposal");
-
-                    b.Navigation("Session");
-
-                    b.Navigation("SessionReport");
-
-                    b.Navigation("Status");
-
-                    b.Navigation("Sufflere");
-                });
-
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Proposal", b =>
                 {
                     b.HasOne("radioKPI_D_infrastructure.Entities.GuestInfo", "Guest")
@@ -474,28 +481,36 @@ namespace radioKPI_D_infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Session", "Session")
+                        .WithMany()
+                        .HasForeignKey("SessionId");
+
                     b.Navigation("Guest");
+
+                    b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Session", b =>
+            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Recording", b =>
                 {
-                    b.HasOne("radioKPI_D_infrastructure.Entities.PostProdProcess", null)
-                        .WithMany("Sessions")
-                        .HasForeignKey("PostProdProcessId");
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Episode", "Episode")
+                        .WithMany("Recordings")
+                        .HasForeignKey("EpisodeId");
 
-                    b.HasOne("radioKPI_D_infrastructure.Entities.Proposal", "Proposal")
-                        .WithOne("Session")
-                        .HasForeignKey("radioKPI_D_infrastructure.Entities.Session", "ProposalId")
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Session", "Session")
+                        .WithMany("Recordings")
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("radioKPI_D_infrastructure.Entities.Sufflere", "Sufflere")
-                        .WithOne("Session")
-                        .HasForeignKey("radioKPI_D_infrastructure.Entities.Session", "SufflereId")
+                        .WithOne("Recording")
+                        .HasForeignKey("radioKPI_D_infrastructure.Entities.Recording", "SufflereId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Proposal");
+                    b.Navigation("Episode");
+
+                    b.Navigation("Session");
 
                     b.Navigation("Sufflere");
                 });
@@ -511,13 +526,6 @@ namespace radioKPI_D_infrastructure.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Subject", b =>
-                {
-                    b.HasOne("radioKPI_D_infrastructure.Entities.GuestInfo", null)
-                        .WithMany("Subjects")
-                        .HasForeignKey("GuestInfoId");
-                });
-
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Sufflere", b =>
                 {
                     b.HasOne("radioKPI_D_infrastructure.Entities.Proposal", "Proposal")
@@ -526,35 +534,32 @@ namespace radioKPI_D_infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("radioKPI_D_infrastructure.Entities.Session", "Session")
+                        .WithMany("Suffleres")
+                        .HasForeignKey("SessionId");
+
                     b.Navigation("Proposal");
+
+                    b.Navigation("Session");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Episode", b =>
                 {
-                    b.Navigation("ProductionProcesses");
+                    b.Navigation("Recordings");
+                });
+
+            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.EpisodeStatus", b =>
+                {
+                    b.Navigation("Episodes");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.GuestInfo", b =>
                 {
-                    b.Navigation("MyProperty");
-
                     b.Navigation("Proposal");
-
-                    b.Navigation("Subjects");
-                });
-
-            modelBuilder.Entity("radioKPI_D_infrastructure.Entities.PostProdProcess", b =>
-                {
-                    b.Navigation("Episode")
-                        .IsRequired();
-
-                    b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Proposal", b =>
                 {
-                    b.Navigation("Session");
-
                     b.Navigation("Sufflere");
                 });
 
@@ -562,7 +567,11 @@ namespace radioKPI_D_infrastructure.Migrations
                 {
                     b.Navigation("PartialReports");
 
+                    b.Navigation("Recordings");
+
                     b.Navigation("Report");
+
+                    b.Navigation("Suffleres");
                 });
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.SessionReport", b =>
@@ -572,7 +581,7 @@ namespace radioKPI_D_infrastructure.Migrations
 
             modelBuilder.Entity("radioKPI_D_infrastructure.Entities.Sufflere", b =>
                 {
-                    b.Navigation("Session");
+                    b.Navigation("Recording");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,8 +8,9 @@ namespace radioKPI_C_domain.Enums
 {
     public enum SubjectsEnum
     {
-        STEM,
+        STEM = 1,
         Military,
+        Politics,
         Activism,
         Education,
         VisualArts,
