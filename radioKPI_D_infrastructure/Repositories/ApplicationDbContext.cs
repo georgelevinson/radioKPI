@@ -121,7 +121,7 @@ namespace radioKPI_D_infrastructure.Repositories
                 );
             modelBuilder.Entity<Proposal>().HasData(
                 new Proposal { Id = 1, Description = "Engineering at KPI, robotics, AI", OrgNotes = "Free on weekends after 13:00", GuestId = 1 },
-                new Proposal { Id = 2, Description = "Jazz music, art of improvisation, performer's community.", OrgNotes = "Only available on Saturday Sep.10 from 15:30 to 17:00", GuestId = 2 }
+                new Proposal { Id = 2, Description = "Jazz music, art of improvisation, performer's community.", OrgNotes = "Only available on Saturday Sep.10 from 15:30 to 17:00", GuestId = 3 }
                 );
             modelBuilder.Entity<Session>().HasData(
                 new Session { Id = 1, RecordingDate = new DateTime(2022, 9, 10, 13, 0, 0) }

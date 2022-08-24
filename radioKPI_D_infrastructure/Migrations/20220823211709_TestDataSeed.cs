@@ -42,7 +42,7 @@ namespace radioKPI_D_infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Proposals",
                 columns: new[] { "Id", "Description", "GuestId", "OrgNotes", "SessionId", "UpdatedOn" },
-                values: new object[] { 2, "Jazz music, art of improvisation, performer's community.", 2, "Only available on Saturday Sep.10 from 15:30 to 17:00", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 2, "Jazz music, art of improvisation, performer's community.", 3, "Only available on Saturday Sep.10 from 15:30 to 17:00", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Suffleres",
